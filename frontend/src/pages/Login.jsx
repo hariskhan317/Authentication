@@ -1,20 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react' 
 import Input from '../components/Input.jsx';
 
 const Login = () => {
+ 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(email, password)
+  }
+
   return (
-    <form style={{background:"white",width:'50%', postion: 'absolute', left: 0, right: 0, margin:'auto'}}> 
-    <div >
-      <Input label={"Name"} />
-    </div>
-    <div>
-      <Input label={"Email"} />
-    </div>
-    <div>
-      <Input label={"Password"} />
-    </div>
-  </form>
+    <form onSubmit={handleSubmit} className='w-1/4 bg-white rounded px-8 py-5 mx-auto space-y-6'> 
+       <Input
+        value={email}
+        label="Email"
+        name="email"
+        type="email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <Input
+        value={password}
+        label="Password"
+        name="password"
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button type='submit' className='border-2 px-4 py-1.5 w-full rounded-lg'>Login</button>
+    </form>
   )
 }
 
-export default Login
+export default Login;

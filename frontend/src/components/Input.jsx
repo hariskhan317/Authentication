@@ -1,10 +1,16 @@
 import React from 'react' 
 
-const Input = ({label, value, type}) => {
+const Input = ({ value, label,name, type, onChange }) => {
   return (
     <div>
       <label className=''>{label}</label>
-      <input className='mt-2 text-black border-2 w-full p-1' placeholder={label} name={value} type={type} />
+      <input
+        type={type}
+        value={value}
+        name={name}
+        placeholder={label} 
+        onChange={onChange}
+        className='mt-2 text-black border-2 w-full p-1' />
     </div>
   )
 }
