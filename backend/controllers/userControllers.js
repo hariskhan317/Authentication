@@ -7,6 +7,17 @@ export const getAllUser = async (req, res) => {
     res.status(200).send(user);
 }
 
+export const authUser = async (req, res) => {
+    const user = await User.findById(res.locals.jwtData.id);
+    if (!user) {
+        return res.status(422).send("Can't find the User");
+    }
+    if (user._id.toString() !== res.locals.jwtData.id) {
+        return res.status(422).send("Not the same user");
+    }
+    return res.status(200).json({ status: 200, name: user.name, email: user.email });
+}
+
 export const userSignup = async (req, res) => {
     try {
         const { name, email, password, photo } = req.body;

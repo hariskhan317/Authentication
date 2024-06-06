@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
 import axios from 'axios';
 
-export const userSignup = createAsyncThunk('userSignup/userSignup', async(data) => {
-    try {
-        console.log(data)
-        const res = await axios.post('/user/signup', data);
-        console.log({res});
+export const userSignupHandle = createAsyncThunk('userSignup/userSignupHandle', async(data) => {
+    try { 
+        const res = await axios.post('/user/signup', data); 
         return res;
     } catch (error) {
         console.log(error)
@@ -22,15 +20,15 @@ const userSignupSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(userSignup.pending, (state) => {
+        builder.addCase(userSignupHandle.pending, (state) => {
             state.status = 'loading'
         })
-        .addCase(userSignup.fulfilled, (state) => {
+        .addCase(userSignupHandle.fulfilled, (state) => {
             state.status = 'loading'
             state.status = 'succeeded';
         })
-        .addCase(userSignup.rejected, (state, action) => {
-            state.status = 'loading'
+        .addCase(userSignupHandle.rejected, (state, action) => {
+            state.status = 'failed'
             state.error = action.error.message;
         })
     }

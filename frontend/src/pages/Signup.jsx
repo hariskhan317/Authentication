@@ -1,7 +1,7 @@
 import React, { useState } from 'react' 
 import { useDispatch } from 'react-redux'
 import Input from '../components/Input.jsx';
-import { userSignup } from '../store/features/UserSiginSlice.js';
+import { userSignupHandle } from '../store/features/UserSigupSlice.js';
 
 const Signup = () => {
   const dispatch = useDispatch()
@@ -12,7 +12,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault(); 
     const data = { name, email, password }
-    dispatch(userSignup(data)) 
+    dispatch(userSignupHandle(data)) 
   }
 
   return (

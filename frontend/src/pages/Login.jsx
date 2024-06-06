@@ -1,13 +1,16 @@
 import React, { useState } from 'react' 
 import Input from '../components/Input.jsx';
-
+import { useDispatch } from 'react-redux';
+import { userLoginHandle } from '../store/features/userLoginSlice.js'
 const Login = () => {
- 
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const data = { email, password }
+    dispatch(userLoginHandle(data))
     console.log(email, password)
   }
 
