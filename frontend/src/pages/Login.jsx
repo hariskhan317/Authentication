@@ -1,8 +1,12 @@
-import React, { useState } from 'react' 
+import React, { useEffect, useState } from 'react' 
 import Input from '../components/Input.jsx';
-import { useDispatch } from 'react-redux';
-import { userLoginHandle } from '../store/features/userLoginSlice.js'
+import { useDispatch, useSelector } from 'react-redux';
+import { userLoginHandle } from '../store/features/userLoginSlice.js';
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const { user } = useSelector((state) => state.userAuth);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +17,11 @@ const Login = () => {
     dispatch(userLoginHandle(data))
     console.log(email, password)
   }
-
+  useEffect(() => {
+    if (user) {
+      navigate('/profile');
+    }
+  })
   return (
     <form onSubmit={handleSubmit} className='w-1/4 bg-white rounded px-8 py-5 mx-auto space-y-6'> 
        <Input

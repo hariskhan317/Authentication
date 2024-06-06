@@ -3,15 +3,15 @@ import axios from 'axios'
 
 export const userAuthHandle = createAsyncThunk('userAuth/userAuthHandle', async() => {
     const res = await axios.get('/user/authUser');
-    const data = res.data;
-    console.log({ data });
+    const data = res.data; 
     return data;
 })
 
 const initialState = {
+    isLogin: false,
     user: null,
     status: 'idle',
-    error: null
+    error: null,
 }
 
 const userAuthSlice = createSlice({
@@ -23,6 +23,7 @@ const userAuthSlice = createSlice({
             state.status = "pending";
         }).addCase(userAuthHandle.fulfilled, (state, action) => {
             state.status = "succeeded";
+            state.isLogin = true;
             state.user = action.payload;
         }).addCase(userAuthHandle.rejected, (state, action) => {
             state.status = "failed";
