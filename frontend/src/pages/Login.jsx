@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react' 
 import Input from '../components/Input.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLoginHandle } from '../store/features/userLoginSlice.js';
+import { userLoginHandle } from '../store/features/asyncUserFunction/userAsyncThunk.js';
 import { useNavigate } from "react-router-dom";
+
 const Login = () => {
-  const { user } = useSelector((state) => state.userAuth);
+  const { isLogin, status } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const dispatch = useDispatch()
@@ -12,18 +13,22 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     const data = { email, password }
-    dispatch(userLoginHandle(data))
-    console.log(email, password)
+    dispatch(userLoginHandle(data)) 
   }
+
   useEffect(() => {
-    if (user) {
-      navigate('/profile');
+
+    if (isLogin) { 
+      return navigate('/profile');
     }
-  })
+  }, [isLogin])
+
+
+
   return (
-    <form onSubmit={handleSubmit} className='w-1/4 bg-white rounded px-8 py-5 mx-auto space-y-6'> 
+    <form onSubmit={handleSubmit} className='w-11/12 md:w-1/2 lg:w-1/4 bg-white rounded px-8 py-5 mx-auto space-y-6'> 
        <Input
         value={email}
         label="Email"

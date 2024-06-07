@@ -8,9 +8,9 @@ export const createToken = (id, email) => {
 
 export const verifyToken = async(req, res, next) => {
     const token = await req.cookies.auth_token; 
-    jwt.verify(token, process.env.JWT_TOKEN, (err, success) => {
-        if (err) {
-            console.log(err);
+    jwt.verify(token, process.env.JWT_TOKEN, (error, success) => {
+        if (error) {
+            console.log(error);
             return res.status(422).send({ message: "Token verification failed", cause: error.message})
         } 
         res.locals.jwtData = success;

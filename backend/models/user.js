@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-        default: '',
+        default: 'https://static.vecteezy.com/system/resources/thumbnails/005/544/718/small_2x/profile-icon-design-free-vector.jpg',
     }
 });
 
